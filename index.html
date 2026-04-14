@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <title>합격예측은 진학사</title>
+  <meta name="description" content="진학사는 수험생을 위한 입시정보, 합격예측, 대학 학과 정보, 입시상담, 선택과목 추천, 멘토강의, 수행평가 탐구 주제 추천 등 다양한 입시분석 콘텐츠를 제공합니다."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#272727}
+    a{text-decoration:none;color:inherit}
+    ul,li{list-style:none}
+    img{max-width:100%;display:block}
+
+    /* HEADER */
+    #header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #f0f0f0;height:72px}
+    .header-inner{max-width:1280px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+    .logo img{height:36px;width:auto}
+    .logo-text{font-size:22px;font-weight:900;color:#1a4fa0;letter-spacing:-.5px;display:none}
+
+    /* GNB */
+    #gnb{display:flex;align-items:center;height:100%}
+    .gnb-list{display:flex;align-items:stretch;height:100%}
+    .gnb-item{position:relative;display:flex;align-items:center}
+    .gnb-item>a,.gnb-item>span{display:flex;align-items:center;height:100%;padding:0 18px;font-size:15px;font-weight:600;color:#272727;cursor:pointer;white-space:nowrap;transition:color .15s;border-bottom:3px solid transparent}
+    .gnb-item:hover>a,.gnb-item:hover>span{color:#1a4fa0;border-bottom-color:#1a4fa0}
+
+    .sub-menu{display:none;position:absolute;top:100%;left:0;min-width:220px;background:#fff;border:1px solid #e8e8e8;border-top:2px solid #1a4fa0;border-radius:0 0 8px 8px;box-shadow:0 8px 24px rgba(0,0,0,.10);z-index:200;padding:8px 0}
+    .gnb-item:hover .sub-menu{display:block}
+    .sub-menu li a{display:block;padding:10px 20px;font-size:14px;font-weight:400;color:#444;transition:background .1s,color .1s}
+    .sub-menu li a:hover{background:#f4f7fe;color:#1a4fa0;font-weight:500}
+    .sub-menu li.highlight a{color:#1a4fa0;font-weight:700;background:linear-gradient(90deg,#e8f0fd 0%,#fff 100%)}
+    .sub-menu-section-label{padding:8px 20px 4px;font-size:11px;font-weight:700;color:#aaa;letter-spacing:.5px}
+    .sub-menu li.divider{border-top:1px solid #f0f0f0;margin:4px 0}
+
+    .header-right{display:flex;align-items:center;gap:8px}
+    .btn-login{padding:7px 16px;border-radius:20px;font-size:14px;font-weight:500;color:#1a4fa0;border:1px solid #1a4fa0;background:#fff;cursor:pointer;transition:all .15s;display:inline-block}
+    .btn-login:hover{background:#1a4fa0;color:#fff}
+    .btn-join{padding:7px 16px;border-radius:20px;font-size:14px;font-weight:600;color:#fff;border:none;background:#1a4fa0;cursor:pointer;transition:all .15s;display:inline-block}
+    .btn-join:hover{background:#153d82}
+
+
+
+
+    /* 퀵메뉴 */
+    .quick-menu-wrapper{background:#fff;border-bottom:1px solid #f0f0f0;padding:14px 0}
+    .quick-menu-inner{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;overflow-x:auto;gap:0;-webkit-overflow-scrolling:touch}
+    .quick-item{display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 14px;min-width:72px;cursor:pointer;transition:transform .15s;flex-shrink:0}
+    .quick-item:hover{transform:translateY(-2px)}
+    .quick-item img{width:48px;height:48px;border-radius:14px;object-fit:cover;background:#eef3fc}
+    .quick-icon{width:48px;height:48px;border-radius:14px;background:#eef3fc;display:flex;align-items:center;justify-content:center;font-size:22px}
+    .quick-label{font-size:11px;font-weight:500;color:#555;text-align:center;line-height:1.35}
+
+    /* 메인 비주얼 */
+    .main-visual{background:linear-gradient(180deg,#fff 20%,#f6f8fd 100%);padding:32px 0 40px}
+    .main-visual-inner{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;gap:20px}
+    .main-visual-left{flex:1;min-width:0}
+    .main-visual-right{width:500px;flex-shrink:0;display:flex;gap:12px}
+
+    .slide-card{border:1px solid #e0e8f7;border-radius:16px;padding:36px 40px;background:#fff;min-height:300px;display:flex;flex-direction:column;justify-content:center;transition:box-shadow .2s}
+    .slide-card:hover{box-shadow:0 4px 20px rgba(26,79,160,.12)}
+    .slide-title{font-size:30px;font-weight:900;line-height:1.28;margin-bottom:14px;letter-spacing:-.5px}
+    .slide-title b{color:#1a4fa0}
+    .slide-desc{font-size:14px;color:#666;line-height:1.65;margin-bottom:22px}
+    .slide-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:20px;border:1px solid #272727;font-size:13px;font-weight:500;cursor:pointer;background:#fff;width:fit-content;transition:all .15s}
+    .slide-btn:hover{background:#272727;color:#fff}
+
+    .right-col-left{width:50%;display:flex;flex-direction:column;gap:12px}
+    .right-col-right{width:50%}
+    .ad-banner{border-radius:14px;overflow:hidden;background:#dde7f7;flex:1}
+    .ad-banner img{width:100%;height:100%;object-fit:cover;display:block}
+    .ad-banner-tall{border-radius:14px;overflow:hidden;background:#dde7f7;height:100%}
+    .ad-banner-tall img{width:100%;height:100%;object-fit:cover;display:block}
+    .ad-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#1a4fa0;font-weight:600;font-size:14px;min-height:120px}
+
+    /* 섹션 */
+    .section-block{padding:40px 0}
+    .section-block+.section-block{border-top:8px solid #f5f7fb}
+    .section-wrapper{max-width:1280px;margin:0 auto;padding:0 20px}
+    .section-title{font-size:24px;font-weight:800;margin-bottom:24px;letter-spacing:-.3px}
+    .section-title span{color:#1a4fa0}
+    .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{border:1px solid #e8e8e8;border-radius:16px;padding:24px;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
+    .card:hover{box-shadow:0 4px 20px rgba(26,79,160,.10);border-color:#b8d0f7}
+    .card-title{font-size:16px;font-weight:700;margin-bottom:16px}
+    .card-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #f5f5f5}
+    .card-item:last-of-type{border-bottom:none}
+    .card-thumb{width:60px;height:60px;border-radius:8px;background:#eef3fc;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px}
+    .card-info{flex:1;min-width:0}
+    .card-info h4{font-size:14px;font-weight:600;margin-bottom:4px}
+    .card-info p{font-size:12px;color:#888;line-height:1.45}
+    .card-more{margin-top:16px;display:flex;align-items:center;justify-content:center;padding:12px;border-radius:8px;border:1px solid #e8e8e8;font-size:13px;color:#555;cursor:pointer;transition:all .15s}
+    .card-more:hover{background:#f4f7fe;color:#1a4fa0;border-color:#b8d0f7}
+
+    .skeleton{background:linear-gradient(90deg,#e8e8e8 25%,#f5f5f5 50%,#e8e8e8 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:6px}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+    /* 공지 */
+    .notice-bar{border-top:1px solid #f0f0f0;padding:18px 0}
+    .notice-inner{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:20px}
+    .notice-label{font-size:14px;font-weight:700;white-space:nowrap}
+    .notice-items{flex:1;display:flex;gap:32px;overflow:hidden}
+    .notice-item{font-size:13px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .notice-item:hover{color:#1a4fa0}
+
+    /* 푸터 */
+    footer{background:#fff;border-top:1px solid #f0f0f0;padding:28px 0 20px}
+    .footer-inner{max-width:1280px;margin:0 auto;padding:0 20px}
+    .footer-links{display:flex;flex-wrap:wrap;gap:0;margin-bottom:14px}
+    .footer-links a{font-size:13px;color:#555;padding:0 12px;border-right:1px solid #ddd}
+    .footer-links a:first-child{padding-left:0}
+    .footer-links a:last-child{border-right:none}
+    .footer-links a.primary{color:#1a4fa0;font-weight:600}
+    .footer-info{font-size:12px;color:#aaa;line-height:1.8}
+    .footer-sns{display:flex;gap:8px;margin-top:14px}
+    .footer-sns img{width:28px;height:28px}
+
+    @media(max-width:1100px){
+      .main-visual-right{width:380px}
+    }
+    @media(max-width:768px){
+      .main-visual-inner{flex-direction:column}
+      .main-visual-right{width:100%}
+      .cards-grid{grid-template-columns:1fr}
+      #gnb{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-inner">
+    <a href="https://www.jinhak.com" class="logo">
+      <img src="https://image.jinhak.com/jinhakImages/svg/logo.svg" alt="진학사" onerror="this.style.display='none';document.querySelector('.logo-text').style.display='block'"/>
+      <span class="logo-text">진학사</span>
+    </a>
+
+    <nav id="gnb">
+      <ul class="gnb-list">
+        <li class="gnb-item">
+          <span>수시합격예측</span>
+          <ul class="sub-menu">
+            <li><a href="https://hijinhak.jinhak.com/Nesin/MyGrade/InfoView.aspx?TopFlag=S">성적입력</a></li>
+            <li><a href="#">수시/정시진단</a></li>
+            <li><a href="#">4년제 합격예측</a></li>
+            <li><a href="#">전문대 모의지원</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <span>정시합격예측</span>
+          <ul class="sub-menu">
+            <li><a href="https://www.jinhak.com/jh/high3/mock/grade-input/sat">성적입력</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/mock/analysis/grade-level-cut">등급컷</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/mock/four-year-university/search">대학검색</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/mock/four-year-university/recommend-university">추천대학</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="https://www.jinhak.com/jh/high3/jinhak-tv/">진학TV</a>
+        </li>
+        <li class="gnb-item">
+          <span>대학학과</span>
+          <ul class="sub-menu">
+            <li><a href="https://www.jinhak.com/jh/high3/univ-major/univ-info/univ-search">대학정보</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-major/major-info/major-all">학과정보</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-major/univ-info/univ-map">지도로 보는 대학</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-major/univ-info/univ-deep-analysis/">대학 심층분석</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <span>대입정보</span>
+          <ul class="sub-menu">
+            <li class="sub-menu-section-label">입시분석</li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-analysis/ipsi-strategy/">입시전략</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-analysis/ipsi-knowledge/">입시지식iN</a></li>
+            <li class="highlight"><a href="univ_pr.html">국립대 입시전략</a></li>
+            <li class="divider"></li>
+            <li class="sub-menu-section-label">입시상담</li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/admission-consulting/partner-center/jungsi">정시 입시상담 제휴센터</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/admission-consulting/physical-center">체대 입시상담 제휴센터</a></li>
+            <li class="divider"></li>
+            <li class="sub-menu-section-label">대입자료실</li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-archive/admission/guide">모집요강 자료실</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-archive/admission/result">입시결과 자료실</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-archive/admission/exams">대학별고사 자료실</a></li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-archive/lecture">교육기관/강의 자료실</a></li>
+            <li class="divider"></li>
+            <li class="sub-menu-section-label">테마검색</li>
+            <li><a href="https://www.jinhak.com/jh/high3/univ-entrance-info/theme-search">나만의 대학 찾기</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header-right">
+      <a href="https://member.jinhak.com/MemberV3/MemberJoin/MemberLogin.aspx?ReturnSite=JM&ReturnURL=https%3A%2F%2Fwww.jinhak.com" class="btn-login">로그인</a>
+      <a href="https://member.jinhak.com/MemberV3/MemberJoin/TotalIntro.aspx?ReturnSite=JM&IsTotal=Y&ReturnURL=https%3A%2F%2Fwww.jinhak.com" class="btn-join">회원가입</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- 메인 비주얼 -->
+<div class="main-visual">
+  <div class="main-visual-inner">
+    <div class="main-visual-left">
+      <div class="slide-card">
+        <div class="slide-title">지금 점수로 더 유리한 선택,<br/>국립대 기준 합격 가능성<br/><b>높이는 전략 확인!</b></div>
+        <div class="slide-desc">비용 부담은 줄이고, 합격 전략은 더 넓히는 선택<br/>국가 지원 기반으로 학업과 취업까지 경쟁력을 확보하세요</div>
+        <a href="univ_pr.html" target="_self" class="slide-btn">
+          전략 보러가기
+          <svg width="5" height="8" viewBox="0 0 5 8" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.146447 7.02451C-0.0488155 7.24767 -0.0488155 7.60948 0.146447 7.83263C0.341709 8.05579 0.658291 8.05579 0.853553 7.83263L3.85355 4.40406C4.04882 4.1809 4.04882 3.8191 3.85355 3.59594L0.853553 0.167367C0.658291 -0.055789 0.341709 -0.055789 0.146447 0.167367C-0.0488155 0.390524 -0.0488155 0.752332 0.146447 0.975489L2.79289 4L0.146447 7.02451Z" fill="#272727"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="main-visual-right">
+      <div class="right-col-left">
+        <div class="ad-banner" style="height:144px">
+          <img src="https://navycdn.contentsfeed.com/RealMedia/ads/Creatives/JINHAK/2602_iajou_WmainBigB_284x170/iajou260316_852x396_P.png" alt="대학광고" onerror="this.parentElement.innerHTML='<div class=ad-placeholder>대학 광고</div>'"/>
+        </div>
+        <div class="ad-banner" style="height:200px">
+          <img src="https://navycdn.contentsfeed.com/RealMedia/ads/Creatives/JINHAK/2602_daegu_WmainBigC_284x256/daegu260316_852x582_P.png" alt="대학광고" onerror="this.parentElement.innerHTML='<div class=ad-placeholder>대학 광고</div>'"/>
+        </div>
+      </div>
+      <div class="right-col-right">
+        <div class="ad-banner-tall">
+          <img src="https://navycdn.contentsfeed.com/RealMedia/ads/Creatives/JINHAK/2602_cau_WmainBigA_284x438/cau260316_858x1014_P.png" alt="대학광고" onerror="this.parentElement.innerHTML='<div class=ad-placeholder>대학 광고</div>'"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 퀵메뉴 -->
+<div class="quick-menu-wrapper">
+  <div class="quick-menu-inner">
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high3/mock/grade-input/sat'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_성적입력.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">📝</div>
+      <span class="quick-label">3월 학평<br/>성적입력</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high3/mock/four-year-university/recommend-university'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_추천대학.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">🎯</div>
+      <span class="quick-label">정시<br/>추천대학</span>
+    </div>
+    <div class="quick-item" onclick="location.href='http://www.jinhak.com/NewLetter/Quarter.aspx?idx=14'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_합격예측.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">✅</div>
+      <span class="quick-label">수시<br/>추천대학</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-analysis/ipsi-strategy/100000448'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_2027입시전망.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">🔮</div>
+      <span class="quick-label">2027<br/>입시전망</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high3/univ-major/major-info/major-all'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon2_내전공찾기.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">🔍</div>
+      <span class="quick-label">내<br/>전공찾기</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high3/univ-entrance-info/admission-lecture/detail?lectureNo=190'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_입시전문가과정.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">🎓</div>
+      <span class="quick-label">입시전문가<br/>과정</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high3/univ-major/univ-info/univ-deep-analysis'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_숫자로 보는 대학(1).png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">📊</div>
+      <span class="quick-label">숫자로<br/>보는 대학</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/promotion/tong'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_학생관리PRO.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">👩‍🏫</div>
+      <span class="quick-label">학생관리<br/>프로그램</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/black-label'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_블랙라벨.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">📕</div>
+      <span class="quick-label">블랙라벨</span>
+    </div>
+    <div class="quick-item" onclick="location.href='http://www.jinhak.com/NewLetter/Quarter.aspx?idx=197'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_합격생후기.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">💬</div>
+      <span class="quick-label">합격생<br/>리얼후기</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high12/mentoring-lecture/mentoring-lectures?page=1'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_멘토무료강좌.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">🎬</div>
+      <span class="quick-label">멘토<br/>무료강좌</span>
+    </div>
+    <div class="quick-item" onclick="location.href='https://www.jinhak.com/jh/high12/performance/subject-search'">
+      <img src="http://board.jinhak.com/BoardV1/Upload/JinhakMain/QuickMenu/icon_탐구주제TOP.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="quick-icon" style="display:none">🔬</div>
+      <span class="quick-label">탐구주제<br/>TOP</span>
+    </div>
+  </div>
+</div>
+
+<!-- 섹션 1 -->
+<div class="section-block">
+  <div class="section-wrapper">
+    <h2 class="section-title">김진학님, <span>모평 성적</span>으로 내 위치 확인하세요</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">모평이후 나만의 합격 로드맵</div>
+        <div class="card-item">
+          <div class="card-thumb">📝</div>
+          <div class="card-info">
+            <h4>2027 입시 전략 완성하기</h4>
+            <p>모평 성적 기반 맞춤 전략 수립</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">🎯</div>
+          <div class="card-info">
+            <h4>수시 vs 정시 진단</h4>
+            <p>내 성적에 맞는 전형 분석</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">🏫</div>
+          <div class="card-info">
+            <h4>국립대 입시전략 <span style="background:#1a4fa0;color:#fff;font-size:10px;padding:1px 6px;border-radius:8px;vertical-align:middle">NEW</span></h4>
+            <p>지원가능점수·경쟁률 한눈에</p>
+          </div>
+        </div>
+        <a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-analysis/ipsi-strategy/" class="card-more">더 보기 →</a>
+      </div>
+      <div class="card">
+        <div class="card-title">합격예측부터 추천대학까지 한번에</div>
+        <div class="card-item">
+          <div class="card-thumb">✅</div>
+          <div class="card-info">
+            <h4>수시 합격예측</h4>
+            <p>학생부 교과·종합 합격 가능성 확인</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">📊</div>
+          <div class="card-info">
+            <h4>정시 추천대학</h4>
+            <p>모의고사 성적 기반 대학 추천</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">💡</div>
+          <div class="card-info">
+            <h4>가나다군 칸수전략</h4>
+            <p>군별 최적 지원 조합 분석</p>
+          </div>
+        </div>
+        <a href="https://www.jinhak.com/jh/high3/mock/four-year-university/recommend-university" class="card-more">합격예측 바로가기 →</a>
+      </div>
+      <div class="card">
+        <div class="card-title">합격생 1만 명이 증명한 탐구 주제</div>
+        <div class="card-item">
+          <div class="card-thumb">🔬</div>
+          <div class="card-info">
+            <h4>의약 계열 탐구 TOP</h4>
+            <p>의대·약대 합격생의 실제 탐구 보고서</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">🧮</div>
+          <div class="card-info">
+            <h4>이공계 탐구 TOP</h4>
+            <p>SKY·카이스트 합격생 탐구 분석</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">📚</div>
+          <div class="card-info">
+            <h4>인문사회 탐구 TOP</h4>
+            <p>법학·경영 합격생의 차별화 주제</p>
+          </div>
+        </div>
+        <a href="https://www.jinhak.com/jh/high12/performance/subject-search" class="card-more">탐구 주제 보기 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 섹션 2 -->
+<div class="section-block">
+  <div class="section-wrapper">
+    <h2 class="section-title">최신 <span>입시분석</span> 콘텐츠</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">📰 입시전략 리포트</div>
+        <div class="card-item"><div class="card-info"><h4 class="skeleton" style="height:16px;width:90%;margin-bottom:6px">&nbsp;</h4><p class="skeleton" style="height:12px;width:60%">&nbsp;</p></div></div>
+        <div class="card-item"><div class="card-info"><h4 class="skeleton" style="height:16px;width:80%;margin-bottom:6px">&nbsp;</h4><p class="skeleton" style="height:12px;width:50%">&nbsp;</p></div></div>
+        <div class="card-item"><div class="card-info"><h4 class="skeleton" style="height:16px;width:70%;margin-bottom:6px">&nbsp;</h4><p class="skeleton" style="height:12px;width:55%">&nbsp;</p></div></div>
+        <a href="https://www.jinhak.com/jh/high3/univ-entrance-info/ipsi-analysis/ipsi-strategy/" class="card-more">전체 보기 →</a>
+      </div>
+      <div class="card">
+        <div class="card-title">🎓 대학 심층분석</div>
+        <div class="card-item"><div class="card-info"><h4 class="skeleton" style="height:16px;width:85%;margin-bottom:6px">&nbsp;</h4><p class="skeleton" style="height:12px;width:65%">&nbsp;</p></div></div>
+        <div class="card-item"><div class="card-info"><h4 class="skeleton" style="height:16px;width:75%;margin-bottom:6px">&nbsp;</h4><p class="skeleton" style="height:12px;width:55%">&nbsp;</p></div></div>
+        <div class="card-item"><div class="card-info"><h4 class="skeleton" style="height:16px;width:80%;margin-bottom:6px">&nbsp;</h4><p class="skeleton" style="height:12px;width:45%">&nbsp;</p></div></div>
+        <a href="https://www.jinhak.com/jh/high3/univ-major/univ-info/univ-deep-analysis/" class="card-more">전체 보기 →</a>
+      </div>
+      <div class="card" style="border-color:#b8d0f7">
+        <div class="card-title">🏛 국립대 입시전략 <span style="background:#1a4fa0;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;vertical-align:middle;margin-left:2px">NEW</span></div>
+        <div class="card-item">
+          <div class="card-thumb">📍</div>
+          <div class="card-info">
+            <h4>지역 거점 국립대 완전 분석</h4>
+            <p>서울대·경북대·부산대 등 입시 데이터</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">💰</div>
+          <div class="card-info">
+            <h4>등록금 절반의 혜택</h4>
+            <p>국립대 장학금·기숙사 완전 정리</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <div class="card-thumb">📈</div>
+          <div class="card-info">
+            <h4>2026 경쟁률 현황</h4>
+            <p>전국 국립대 수시·정시 경쟁률 분석</p>
+          </div>
+        </div>
+        <a href="univ_pr.html" class="card-more" style="color:#1a4fa0;border-color:#1a4fa0;font-weight:700">국립대 입시전략 보기 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 공지사항 -->
+<div class="notice-bar">
+  <div class="notice-inner">
+    <span class="notice-label">공지사항</span>
+    <div class="notice-items">
+      <a href="https://www.jinhak.com/jh/customer-center/notice" class="notice-item">2027학년도 정시 합격예측 서비스 오픈 안내</a>
+      <a href="https://www.jinhak.com/jh/customer-center/notice" class="notice-item">3월 학력평가 등급컷 서비스 안내</a>
+      <a href="https://www.jinhak.com/jh/customer-center/notice" class="notice-item">국립대 입시전략 콘텐츠 신규 오픈</a>
+    </div>
+  </div>
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="http://www.jinhaksa.co.kr/" target="_blank">회사소개</a>
+      <a href="https://member.jinhak.com/MemberV3/Policy/Terms.aspx">이용약관</a>
+      <a href="https://member.jinhak.com/MemberV3/Policy/Privacy.aspx" class="primary">개인정보처리방침</a>
+      <a href="https://member.jinhak.com/MemberV3/Policy/Youth.aspx">청소년보호정책</a>
+      <a href="https://www.jinhak.com/AdInfo/AdInfoMain.aspx">광고안내</a>
+    </div>
+    <div class="footer-info">
+      (주)진학사 대표번호 1544-7715 | 사업자번호 : 101-81-57765 | 통신판매업 신고번호 : 2002-00342호 | FAX : 02-735-8432<br/>
+      Copyright(c) JINHAK Corp. All Rights Reserved
+    </div>
+    <div class="footer-sns">
+      <img src="https://image.jinhak.com/jinhakImages/common/icon_footer_blog.png" alt="네이버 블로그" onerror="this.style.display='none'"/>
+      <img src="https://image.jinhak.com/jinhakImages/common/icon_footer_youtube.png" alt="유투브" onerror="this.style.display='none'"/>
+      <img src="https://image.jinhak.com/jinhakImages/common/icon_footer_facebook.png" alt="페이스북" onerror="this.style.display='none'"/>
+      <img src="https://image.jinhak.com/jinhakImages/common/icon_footer_instagram.png" alt="인스타그램" onerror="this.style.display='none'"/>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
